@@ -25,6 +25,9 @@
               <div class='text-muted'>Inserisci il titolo</div>
           </div>
       </div>
+
+
+
       <div class="col-6">
           <div class="mb-3">
               <label for="slug" class="form-label">Slug</label>
@@ -34,8 +37,21 @@
           </div>
       </div>
   </div>
+
+
+
   <div class="row">
-      <div class="col-10">
+      <div class="col-4">
+          <label for="type_id" class="form-label">Type</label>
+          <select class="form-select" name='type_id' id='type_id'>
+              <option value=''>Nessuna categoria</option>
+              @foreach ($types as $type)
+                  <option @if (old('type_id', $project->type_id) == $type->id) selected @endif value='{{ $type->id }}'>
+                      {{ $type->label }}</option>
+              @endforeach
+          </select>
+      </div>
+      <div class="col-6">
           <div class="mb-3">
               <label for="thumb" class="form-label">Immagine</label>
               <input type="file" class="form-control" id="thumb" name='thumb'
@@ -49,10 +65,11 @@
               alt="">
       </div>
 
+
       <div class="row">
 
 
-          <div class="col"></div>
+
 
           <div class="mb-3">
               <label for="description" class="form-label">Descrizione del progetto</label>

@@ -5,6 +5,7 @@
 @section('content')
     <header>
         <h1 class="my-5">{{ $project->title }}</h1>
+
     </header>
     <div class="clearfix">
         @if ($project->thumb)
@@ -17,6 +18,13 @@
         <div>
             <strong>Creato il </strong>
             <time>{{ $project->created_at }}</time>
+        </div>
+        <div>
+            @if ($project->type)
+                <strong>Type</strong>
+                <span class="my-5">{{ $project->type?->label }}</span>
+            @endif
+
         </div>
         <hr>
         <div class="d-flex justify-content-end">

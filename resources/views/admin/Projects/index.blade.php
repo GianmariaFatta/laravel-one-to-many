@@ -15,6 +15,7 @@
                 <th scope="col">#</th>
                 <th scope="col">Title</th>
                 <th scope="col">Slug</th>
+                <th scope="col">Type</th>
                 <th scope="col">Creato il </th>
                 <th scope="col">Aggiornato il </th>
                 <th> </th>
@@ -27,6 +28,7 @@
                     <th scope="row">{{ $project->id }}</th>
                     <td>{{ $project->title }}</td>
                     <td>{{ $project->slug }}</td>
+                    <td>{{ $project->type?->label }}</td>
                     <td>{{ $project->created_at }}</td>
                     <td>{{ $project->updated_at }}</td>
                     <td class='d-flex justify-content-center align-items-center'>

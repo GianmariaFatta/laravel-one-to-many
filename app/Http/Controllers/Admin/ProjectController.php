@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Project;
+use App\Models\Type;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
@@ -28,7 +29,8 @@ class ProjectController extends Controller
     {
 
         $project = new Project();
-        return view('admin.projects.create',compact('project'));
+        $types =Type::all();
+        return view('admin.projects.create',compact('project', 'types'));
     }
 
     /**
@@ -41,13 +43,15 @@ class ProjectController extends Controller
         'title'=>'required|string|',
         'description'=>'required|string|',
         'thumb'=>'nullable|image|mimes:jpeg,jpg,png,svg',
+        'type_id'=> 'nullable|exists:types,id',
         
         ]);
 
         $project = new Project();
         
         $data['slug']=Str::slug($data['title'], '-');
-
+ 
+        
         if(array_key_exists('thumb', $data)){
           $img_url =  Storage::put('projects',$data['thumb'] );
           $data['thumb']=$img_url;
@@ -78,7 +82,8 @@ class ProjectController extends Controller
     {
        
         $project= Project::findorfail($id);
-        return view('admin.projects.edit', compact('project'));
+        $types =Type::all();
+        return view('admin.projects.edit', compact('project','types'));
     }
 
     /**
@@ -91,6 +96,7 @@ class ProjectController extends Controller
         'title'=>['required', 'string', Rule::unique('projects')->ignore($project->id)],
         'description'=>'|string|',
         'thumb'=>'nullable|image|mimes:jpeg,jpg,png,svg',
+        'type_id'=> 'nullable|exists:types,id',
         
         ]);
 
